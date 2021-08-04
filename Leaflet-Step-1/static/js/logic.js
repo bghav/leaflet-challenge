@@ -62,7 +62,12 @@ function createMap(earthquakes) {
     layers: [streetmap, earthquakes]
   });
 
-  /*function getColor(depth) {
+    // Then add all the details for the legend
+    legend.onAdd = function() {
+      var div = L.DomUtil.create("div", "info legend");
+  
+
+  function getColor(depth) {
     switch (true){
     case depth > 90:
       return "#ea2c2c";
@@ -77,30 +82,16 @@ function createMap(earthquakes) {
     default:
       return "#98ee00";
     }
-  };*/
+  };
 
-  for (var i = 0; i < countries.length; i++) {
+    // Looping through our intervals to generate a label with a colored square for each interval.
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
+      + grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+    }
+    return div;
+  };
 
-    // Conditionals for earthquake grades
-    var color = "";
-    if (earthquakes[i].grades >=90) {
-      color = "red";
-    }
-    else if (earthquakes[i].grades < 90 && earthquakes[i].grades >= 70) {
-      color = "red";
-    }
-    else if (earthquakes[i].grades <70 && earthquakes[i].grades >= 50) {
-      color = "red";
-    }
-    else if (earthquakes[i].grades <50 && earthquakes[i].grades >= 30) {
-      color = "green";
-    }
-    else if (earthquakes[i].grades <30 && earthquakes[i].grades>= 10) {
-      color = "green";
-    }
-    else {
-      color = "green";
-    }
 
   function getRadius(magnitude){
     if (magnitude === 0){
