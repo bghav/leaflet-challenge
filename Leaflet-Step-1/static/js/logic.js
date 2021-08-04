@@ -1,4 +1,32 @@
-// Store our API endpoint inside queryUrl
+// We create the tile layer that will be the background of our map.
+console.log("Step 1 working");
+
+function createMap(earthquakes) {
+
+  // Define streetmap layer
+  var gmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY
+  });
+
+  // Create our map, giving it the streetmap and earthquakes layers to display on load
+  var myMap = L.map("map", {
+    center: [
+      37.09, -95.71
+    ],
+    zoom: 5,
+    layers: [streetmap, earthquakes]
+  });
+
+  // Then we add our 'graymap' tile layer to the map.
+graymap.addTo(map);
+
+
+  // Store our API endpoint inside queryUrl
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // Perform a GET request to the query URL
@@ -29,17 +57,7 @@ function createFeatures(earthquakeData) {
   createMap(earthquakes);
 }
 
-function createMap(earthquakes) {
 
-  // Define streetmap layer
-  var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-    tileSize: 512,
-    maxZoom: 18,
-    zoomOffset: -1,
-    id: "mapbox/streets-v11",
-    accessToken: API_KEY
-  });
 
   
 
@@ -53,14 +71,7 @@ function createMap(earthquakes) {
     Earthquakes: earthquakes
   };
 
-  // Create our map, giving it the streetmap and earthquakes layers to display on load
-  var myMap = L.map("map", {
-    center: [
-      37.09, -95.71
-    ],
-    zoom: 5,
-    layers: [streetmap, earthquakes]
-  });
+  
 
     // Then add all the details for the legend
     legend.onAdd = function() {
