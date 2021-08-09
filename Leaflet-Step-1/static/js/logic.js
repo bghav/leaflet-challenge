@@ -18,8 +18,7 @@ console.log("Step 1 working");
     center: [
       37.09, -95.71
     ],
-    zoom: 5,
-    layers: [streetmap, earthquakes]
+    zoom: 5
   });
 
   // Then we add our 'graymap' tile layer to the map.
